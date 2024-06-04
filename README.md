@@ -1,4 +1,4 @@
-# rex_repo_template
+# FormSlider
 REDAXO AddOn english readme
 
 please use in your classes a namespace as
