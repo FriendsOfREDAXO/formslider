@@ -12,3 +12,17 @@ modules.xml
 .idea/vcs.xml
 .idea/encodings.xml
 *.ipr
+.vscode/*
+!.vscode/extensions.json
+.npmrc
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+/.build
+node_modules
+/vendor
+*.local
