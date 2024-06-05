@@ -1,8 +1,11 @@
-package: addon_key
-version: '0.0.0'
+package: formslider
+version: '0.1.0'
 author: 'Friends Of REDAXO'
-supportpage: https://github.com/FriendsOfREDAXO/addon_key
+supportpage: https://github.com/FriendsOfREDAXO/formslider
 requires:
     redaxo: '^5.15.1'
     php:
         version: '>=8.1, <9'
+    packages:                  # Plugins und Addons
+        yform: "^4"
+        pdfout: "^8.3"
