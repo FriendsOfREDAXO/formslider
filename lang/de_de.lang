@@ -1,0 +1,18 @@
+formslider_title = Form Slider
+navigation_formslider = Form Slider
+
+formslider_table = Formulare
+formslider_settings = Einstellungen
+formslider_docs = Hilfe
+formslider_info = Erklärung zum Addon
+
+# FriendsOfREDAXO-Addons können bei YTraduco zur Übersetzung eingereicht werden
+
+# Konfigurationsformulare
+formslider_config = Einstellungen
+formslider_config_mytextfield_label = Test-Feld
+formslider_config_mytextfield_notice = Notiz, die etwas erklärt und bspw. einen Standardwert nennt. Hier: <code>Test</code>
+
+# YForm Tabellen-Übersetzung
+formslider_table_name_label = Name
+formslider_table_name_notice = Notiz, die etwas erklärt und auch einen Beispielwert nennen kann, z.B.: <code>Mein Name</code>
