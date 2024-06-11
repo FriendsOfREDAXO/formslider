@@ -1,4 +1,4 @@
-# FormSlider
+# Form Slider
 REDAXO AddOn english readme
 
 please use in your classes a namespace as
