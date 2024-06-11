@@ -9,3 +9,25 @@ requires:
     packages:                  # Plugins und Addons
         yform: "^4"
         pdfout: "^8.3"
+
+page:
+    title: translate:formslider_title    # Übersetzung definieren in lang/de_de.lang
+    prio: 100                       # Reihenfolge in Relation zur Prio anderer Menüeinträge
+    block: formslider
+    icon: rex-icon fa-wpforms
+    perm: formslider[]               # Berechtigung, die einer Rolle zugewiesen werden kann. z.B. `admin` für Admin, oder `formslider['xyz']` für dein eigenes Addon
+    subpages:                   # Automatisches Untermenü unterhalb des Reisters von `formsliderpage` erzeugen
+        table:
+            title: translate:formslider_table
+            icon: rex-icon fa-list
+            perm: formslider[]
+        docs:
+            title: translate:formslider_docs
+            icon: rex-icon fa-info-circle
+            itemclass: pull-right
+            perm: formslider[docs]
+        settings:
+            title: translate:formslider_settings
+            icon: rex-icon fa-gears
+            itemclass: pull-right
+            perm: admin
