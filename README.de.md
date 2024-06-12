@@ -65,6 +65,52 @@ options = {
 }
 ```
 
+## Style Anpassungen
+
+### Formslider
+
+Wer die Styles des Formsliders anpassen möchte, kann die über CSS Variablen tun. Hier ein Beispiel:
+
+```css
+.formslider {
+
+  --formprogress-bgcolor: antiquewhite;
+  --formprogress-border-radius: 4px;
+  --formprogress-step-height: 1em;
+  --formprogress-step-bgcolor: lightgray;
+  --formprogress-step-active-bgcolor: darkgray;
+  --formprogress-step-done-bgcolor: green;
+  --formprogress-step-active-done-bgcolor: limegreen;
+
+  --formslider-danger-color: red;
+  --formslider-danger-bgcolor: #f8d7da;
+}
+```
+
+### Checkbox Switch
+
+Ebenfalls ist es möglich den Checkbox Switch über CSS Variablen anzupassen:
+
+```css
+:root {
+  --switch-width: 40px;
+  --switch-height: 21px;
+  --switch-border-radius: 11px;
+  --switch-position-width: 14px;
+  --switch-position-height: 14px;
+  --switch-position-border-radius: 9px;
+  --switch-border-color: black;
+  --switch-position-border-color: black;
+  --switch-position-background-color: black;
+  --switch-position-opacity: 0.6;
+  --switch-checked-color: green;
+  --switch-checked-background-color: green;
+  --switch-checked-opacity: 1;
+  --switch-hover-background-color: #def;
+  --switch-hover-wrapper-background-color: white;
+}
+```
+
 ## Mitgelieferte / Angepasste yTemplates
 
 - checkbox wurde erweitert als Ja/Nein Schalter, wenn die Checkbox nur 1 Option hat und bei "Individuelle Attribute" `{"role":"switch"}` gesetzt ist.
