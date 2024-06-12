@@ -1,0 +1,79 @@
+:root {
+  --switch-width: 40px;
+  --switch-height: 21px;
+  --switch-border-radius: 11px;
+  --switch-position-width: 14px;
+  --switch-position-height: 14px;
+  --switch-position-border-radius: 9px;
+  --switch-border-color: black;
+  --switch-position-border-color: black;
+  --switch-position-background-color: black;
+  --switch-position-opacity: 0.6;
+  --switch-checked-color: green;
+  --switch-checked-background-color: green;
+  --switch-checked-opacity: 1;
+  --switch-hover-background-color: #def;
+  --switch-hover-wrapper-background-color: white;
+}
+
+label input[role="switch"] {
+  opacity: 0;
+}
+
+label input[role="switch"] ~ .state {
+  display: inline-block;
+  user-select: none;
+}
+
+label input[role="switch"] ~ .state > .wrapper {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  border: 2px solid black;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  border-radius: var(--switch-border-radius);
+  margin: 5px 5px 0 0;
+}
+
+label input[role="switch"] ~ .state > .wrapper > .position {
+  position: relative;
+  top: 1px;
+  left: 2px;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: var(--switch-position-border-radius);
+  width: var(--switch-position-width);
+  height: var(--switch-position-height);
+  background: var(--switch-position-background-color);
+  opacity: var(--switch-position-opacity);
+}
+
+label input[role="switch"]:not(:checked) ~ .state span.on {
+  display: none;
+}
+
+label input[role="switch"]:checked ~ .state > span.off {
+  display: none;
+}
+
+label input[role="switch"]:checked ~ .state > .wrapper > .position {
+  left: 20px;
+  border-color: var(--switch-checked-color);
+  background: var(--switch-checked-background-color);
+  opacity: var(--switch-checked-opacity);
+}
+
+label input[role="switch"].focus,
+label input[role="switch"]:hover {
+  padding: 2px 2px 4px 4px;
+  border-width: 2px;
+  outline: none;
+  background-color: var(--switch-hover-background-color);
+  cursor: pointer;
+}
+
+label.focus span.wrapper,
+label:hover span.wrapper {
+  background-color: var(--switch-hover-wrapper-background-color);
+}

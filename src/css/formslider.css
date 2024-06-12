@@ -1,0 +1,123 @@
+.formslider {
+
+  --formprogress-bgcolor: antiquewhite;
+  --formprogress-border-radius: 4px;
+  --formprogress-step-height: 1em;
+  --formprogress-step-bgcolor: lightgray;
+  --formprogress-step-active-bgcolor: darkgray;
+  --formprogress-step-done-bgcolor: green;
+  --formprogress-step-active-done-bgcolor: limegreen;
+
+  --formslider-danger-color: red;
+  --formslider-danger-bgcolor: #f8d7da;
+
+  position: relative;
+  left: 0;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: hidden;
+
+  form {
+    position: relative;
+    left: 0;
+    min-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: start;
+    margin: 0 0 1em;
+    padding: 0;
+    border: 0;
+    transition: all 0.4s ease;
+  }
+
+  fieldset {
+    display: inline-block;
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  input:invalid {
+    border-color: var(--formslider-danger-color);
+  }
+
+  label {
+    font-weight: normal;
+
+    &.required::after {
+      content: " *";
+      color: var(--formslider-danger-color);
+    }
+  }
+
+  p.help-block {
+    margin: 0 0 1em;
+    padding: 0 !important;
+    border: 0;
+  }
+
+  .formslider-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 1em;
+    padding: 0;
+    border: 0;
+
+    .form-next-button {
+      margin-left: auto;
+    }
+
+    .form-prev-button {
+      margin-right: auto;
+    }
+  }
+
+  .form-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 1em;
+    padding: 0;
+    border: 0;
+    border-radius: var(--formprogress-border-radius);
+    background-color: var(--formprogress-bgcolor);
+    overflow: hidden;
+
+    &-step {
+      flex: 1;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      vertical-align: middle;
+      width: auto;
+      height: var(--formprogress-step-height);
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: var(--formprogress-step-bgcolor);
+
+      &.clickable {
+        cursor: pointer;
+        border-left: 1px dotted white;
+      }
+
+      &.active {
+        background-color: var(--formprogress-step-active-bgcolor);
+      }
+
+      &.done {
+        background-color: var(--formprogress-step-done-bgcolor);
+      }
+
+      &.active.done {
+        background-color: var(--formprogress-step-active-done-bgcolor);
+      }
+    }
+  }
+}
