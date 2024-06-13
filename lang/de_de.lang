@@ -6,10 +6,14 @@ formslider_settings = Einstellungen
 formslider_docs = Hilfe
 formslider_info = Erklärung zum Addon
 
-# FriendsOfREDAXO-Addons können bei YTraduco zur Übersetzung eingereicht werden
-
 # Konfigurationsformulare
 formslider_config = Einstellungen
+
+install_module = Modul installieren
+install_module_description = Um Formslider sinnvoll nutzen können, muss ein Modul erstellt werden.
+install_formslider_module = Modul "Formslider Ausgabe" installieren
+install_update_module = Modul "Formslider Ausgabe" updaten
+
 formslider_config_mytextfield_label = Test-Feld
 formslider_config_mytextfield_notice = Notiz, die etwas erklärt und bspw. einen Standardwert nennt. Hier: <code>Test</code>
 
