@@ -8,8 +8,12 @@ export default function formSlider(
     showProgress: true,
     showProgressCount: false,
     nextButtonLabel: 'Next',
+    nextButtonClasses: '',
     prevButtonLabel: 'Prev',
+    prevButtonClasses: '',
+    deleteDivClasses: '',
     deleteDataButtonLabel: 'Delete my data',
+    deleteDataButtonClasses: '',
     deleteDataHeadline: '<h6>Delete data</h6>',
     deleteDataText: '<p>Your data is stored locally in your browser. If you want to delete your data, you can do so by clicking the button below. (If you are on a public computer, you should delete your data.)</p>',
     prependProgress: false,
@@ -122,7 +126,13 @@ export default function formSlider(
     // add prev button under whole form
     var prevButton = document.createElement('button');
     prevButton.innerHTML = options.prevButtonLabel;
-    prevButton.classList.add('form-prev-button', 'uk-button', 'uk-button-default');
+    prevButton.classList.add('form-prev-button');
+    if(options.prevButtonClasses) {
+      let classes = options.prevButtonClasses.split(' ');
+      classes.forEach(function (className) {
+        prevButton.classList.add(className);
+      });
+    }
     nav.appendChild(prevButton);
 
     //hide button initially
@@ -134,7 +144,13 @@ export default function formSlider(
     // add next button under whole form
     var nextButton = document.createElement('button');
     nextButton.innerHTML = options.nextButtonLabel;
-    nextButton.classList.add('form-next-button', 'uk-button', 'uk-button-default');
+    nextButton.classList.add('form-next-button');
+    if(options.nextButtonClasses) {
+      let classes = options.nextButtonClasses.split(' ');
+      classes.forEach(function (className) {
+        nextButton.classList.add(className);
+      });
+    }
     nav.appendChild(nextButton);
 
     // set data-count attribute to fieldset
@@ -181,15 +197,7 @@ export default function formSlider(
       let firstField = form.querySelector(':invalid');
 
       currentFieldset = parseInt(firstField.closest('fieldset').getAttribute('data-count'));
-      if(currentFieldset === 0) {
-        form.style.left = '0';
-        prevButton.style.display = 'none';
-        nextButton.style.display = 'inline-block';
-      } else if(currentFieldset > 0) {
-        form.style.left = '-' + currentFieldset + '00%';
-        prevButton.style.display = 'inline-block';
-        nextButton.style.display = 'inline-block';
-      }
+      currentFieldset = jumpToFieldset(currentFieldset, form, prevButton, nextButton, fieldsetCount, currentFieldset);
       currentStep = updateCurrentStep(progress, currentStep, currentFieldset, element, form);
       document.getElementById(anchorId).scrollIntoView({
         behavior: 'smooth'
@@ -316,11 +324,22 @@ export default function formSlider(
     let fieldsetCount = fieldsets.length;
     let fieldset = fieldsets[fieldsetCount - 1];
     let div = document.createElement('div');
-    div.classList.add('uk-margin-large-top');
+    if(options.deleteDivClasses) {
+      let classes = options.deleteDivClasses.split(' ');
+      classes.forEach(function (className) {
+        div.classList.add(className);
+      });
+    }
     div.innerHTML = options.deleteDataHeadline + options.deleteDataText;
     let deleteButton = document.createElement('button');
     deleteButton.innerHTML = options.deleteDataButtonLabel;
-    deleteButton.classList.add('delete-data-button', 'uk-button', 'uk-button-default');
+    deleteButton.classList.add('delete-data-button');
+    if(options.deleteDataButtonClasses) {
+      let classes = options.deleteDataButtonClasses.split(' ');
+      classes.forEach(function (className) {
+        deleteButton.classList.add(className);
+      });
+    }
     deleteButton.addEventListener('click', function(e) {
       e.preventDefault();
       deleteLocalData(form.id);

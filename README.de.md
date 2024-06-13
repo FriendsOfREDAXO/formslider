@@ -15,6 +15,13 @@ Das Form Slider Addon ermöglicht es, Formulare in einem Slider anzuzeigen. Die 
 2. Addon installieren und aktivieren
 3. Formulare erstellen, im mitgelieferten Modul Formular auswählen und im Slider anzeigen
 
+## Konventionen zur Nutzung
+
+- In YForm alles mit Fieldsets gruppieren, jedes Fieldset wird zu einem Slide
+- Das Modul setzt das ObjectParameter `realfieldnames` auf `true`, um die Feldnamen zu verwenden (macht es einfacher für localStorage)
+- Will man eine Checkbox als Ja/Nein Switch nutzen bei "Individuelle Attribute" `{"role":"switch"}` hinzufügen
+
+
 ## Nutzung im Frontend
 
 Wer die Ausgabe des Formslider im Frontend nutzen möchte, kann dies über die Einbindung im Head der Seite für die CSS-Datei und im Footer für die JS-Datei tun.
@@ -37,8 +44,12 @@ Wer die genutzen Klassen, IDs, Buttonbezeichnungen etc. anpassen will, kann dies
       formslider(
         { // Options
           nextButtonLabel: 'Weiter',
+          nextButtonClasses: 'uk-button uk-button-default',
           prevButtonLabel: 'Zurück',
+          prevButtonClasses: 'uk-button uk-button-default',
+          deleteDivClasses: 'uk-margin-large-top',
           deleteDataButtonLabel: 'Lösche meine Daten',
+          deleteDataButtonClasses: 'uk-button uk-button-default',
           deleteDataHeadline: '<h6>Daten löschen</h6>',
           deleteDataText: '<p>Ihre Daten gehören Ihnen. Alle eingegebenen Daten werden lokal in Ihrem Browser gespeichert. Kehren Sie zu dieser Seite zurück, werden Ihre eingegeben Daten wiederhergestellt. Sie können die Daten löschen, indem Sie ihren Browser-Cache / Cookies löschen oder indem Sie auf den untentstehenden Button klicken. (An einem öffentlichen Rechner sollten Sie die Daten auf jeden Fall löschen.)</p>',
           prependProgress: true
@@ -56,8 +67,12 @@ options = {
     showProgress: true,
     showProgressCount: false,
     nextButtonLabel: 'Next',
+    nextButtonClasses: '',
     prevButtonLabel: 'Prev',
+    prevButtonClasses: '',
+    deleteDivClasses: '',
     deleteDataButtonLabel: 'Delete my data',
+    deleteDataButtonClasses: '',
     deleteDataHeadline: '<h6>Delete data</h6>',
     deleteDataText: '<p>Your data is stored locally in your browser. If you want to delete your data, you can do so by clicking the button below. (If you are on a public computer, you should delete your data.)</p>',
     prependProgress: false,
