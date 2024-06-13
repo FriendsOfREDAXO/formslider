@@ -100,21 +100,6 @@ export default function formSlider(
             currentFieldset = index;
             currentFieldset = jumpToFieldset(currentFieldset, form, prevButton, nextButton, fieldsetCount, index);
             currentStep = updateCurrentStep(progress, currentStep, currentFieldset, element, form);
-
-            // form.style.left = '-' + currentFieldset + '00%';
-            // if(currentFieldset === 0) {
-            //   form.style.left = '0';
-            //   prevButton.style.display = 'none';
-            //   nextButton.style.display = 'inline-block';
-            // } else if(currentFieldset > 0 && currentFieldset < fieldsetCount - 1) {
-            //   form.style.left = '-' + currentFieldset + '00%';
-            //   prevButton.style.display = 'inline-block';
-            //   nextButton.style.display = 'inline-block';
-            // } else if(currentFieldset === fieldsetCount - 1) {
-            //   form.style.left = '-' + currentFieldset + '00%';
-            //   prevButton.style.display = 'inline-block';
-            //   nextButton.style.display = 'none';
-            // }
             document.getElementById(anchorId).scrollIntoView({
               behavior: 'smooth'
             });
@@ -225,50 +210,6 @@ export default function formSlider(
     currentStep = progress.querySelector('[data-stepcount="' + currentFieldset + '"]');
     currentStep.classList.add('active');
     return currentStep;
-  }
-
-  function prevButtonClicked(currentFieldset, form, prevButton, nextButton) {
-    // console.log('Prev button clicked');
-
-    // move form to previous fieldset
-    if(currentFieldset == 1) {
-      currentFieldset--;
-      form.style.left = '0';
-    } else if(currentFieldset > 1) {
-      currentFieldset--;
-      form.style.left = '-' + currentFieldset + '00%';
-    }
-    repeatedInput(form);
-
-    if(currentFieldset === 0) {
-      // first fieldset reached
-      prevButton.style.display = 'none';
-    } else {
-      prevButton.style.display = 'inline-block';
-      nextButton.style.display = 'inline-block';
-    }
-    return currentFieldset;
-  }
-
-  function nextButtonClicked(currentFieldset, form, prevButton, nextButton, fieldsetCount) {
-    // next button clicked
-    // console.log('Next button clicked');
-
-    // move form to next fieldset
-    if(currentFieldset < fieldsetCount - 1) {
-      currentFieldset++;
-    }
-    form.style.left = '-' + currentFieldset + '00%';
-    repeatedInput(form);
-
-    if(currentFieldset === fieldsetCount - 1) {
-      // last fieldset reached
-      nextButton.style.display = 'none';
-    } else {
-      nextButton.style.display = 'inline-block';
-      prevButton.style.display = 'inline-block';
-    }
-    return currentFieldset;
   }
 
   function jumpToFieldset(currentFieldset, form, prevButton, nextButton, fieldsetCount, jumpDirection) {
