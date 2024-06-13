@@ -27,7 +27,7 @@ Wer die Ausgabe des Formslider im Frontend nutzen möchte, kann dies über die E
 <script src="<?= rex_url::addonAssets('formslider', 'formslider.js') ?>"></script>
 ```
 
-Wer die genutzen Klassen, IDs, Buttonbezeichnungen anpssen will, kann dies forlgendermaßen tun:
+Wer die genutzen Klassen, IDs, Buttonbezeichnungen etc. anpassen will, kann dies folgendermaßen tun:
 
 ```html
   <script type="module">
