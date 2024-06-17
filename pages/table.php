@@ -91,3 +91,5 @@ if ($show_list && rex::getUser()->isAdmin()) {
     $content = $fragment->parse('core/page/section.php');
     echo $content;
 }
+
+echo '<div class="alert alert-warning">' . rex_i18n::msg('formslider_table_notice') . '</div>';

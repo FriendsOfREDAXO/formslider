@@ -3,6 +3,7 @@ formslider_block_title = Einstellungen
 navigation_formslider = Form Slider
 
 formslider_table = Formulare
+formslider_table_notice = Damit Formulare hier erscheinen bitte immer mit <b>_formslider_</b> im Namen versehen.
 formslider_settings = Einstellungen
 formslider_docs = Hilfe
 formslider_info = Erklärung zum Addon
