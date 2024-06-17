@@ -22,6 +22,8 @@ Das Form Slider Addon ermöglicht es, Formulare in einem Slider anzuzeigen. Die 
 - Das Modul setzt das ObjectParameter `realfieldnames` auf `true`, um die Feldnamen zu verwenden (macht es einfacher für localStorage)
 - Will man eine Checkbox als Ja/Nein Switch nutzen bei "Individuelle Attribute" `{"role":"switch"}` hinzufügen
 - Felder die im Formular wiederholt werden sollen, mit eine `_again` versehen, z.B. `name_again` (optional nein `{"disabled":"disabled"}` bei den *Individuelle Attribute* hinzufügen)
+- Wenn man mit dem Formular keine Daten sammeln will, kann man den Table für das Formular auf "In Navigation verstecken" setzen
+- Wenn man mit dem Formular Daten sammeln will, sollte man den Table nicht in der Navigation verstecken - dieser wird dann im Block Formslider angezeigt
 
 
 ## Nutzung im Frontend

@@ -11,7 +11,7 @@ requires:
         pdfout: "^8.3"
 
 page:
-    title: translate:formslider_title    # Übersetzung definieren in lang/de_de.lang
+    title: translate:formslider_block_title    # Übersetzung definieren in lang/de_de.lang
     prio: 100                       # Reihenfolge in Relation zur Prio anderer Menüeinträge
     block: formslider
     icon: rex-icon fa-wpforms
