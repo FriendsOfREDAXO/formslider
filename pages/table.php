@@ -82,6 +82,10 @@ if ($show_list && rex::getUser()->isAdmin()) {
     $list->setColumnLabel('hidden', rex_i18n::msg('yform_manager_table_hidden'));
     $list->setColumnFormat('hidden', 'custom', 'rex_yform_hidden_col');
 
+    $list->addColumn(rex_i18n::msg('yform_editfields'), rex_i18n::msg('yform_editfields'));
+    $list->setColumnLayout(rex_i18n::msg('yform_editfields'), ['<th></th>', '<td class="rex-table-action">###VALUE###</td>']);
+    $list->setColumnParams(rex_i18n::msg('yform_editfields'), ['page' => 'yform/manager/table_field', 'table_name' => '###table_name###']);
+
     $content = $list->get();
 
     $fragment = new rex_fragment();
