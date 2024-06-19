@@ -18,7 +18,7 @@ Das Form Slider Addon ermöglicht es, Formulare in einem Slider anzuzeigen. Die 
 ## Konventionen zur Nutzung
 
 - Beim anlegen eines Tables für ein Formular `formslider` irgendwo im Namen verwenden, also z.B. `rex_formslider_meinformular`
-- In YForm alles mit Fieldsets gruppieren, jedes Fieldset wird zu einem Slide
+- In YForm alles mit Fieldsets gruppieren, jedes Fieldset wird zu einem Slide (es muss mindestens ein Fieldset geben)
 - Das Modul setzt das ObjectParameter `realfieldnames` auf `true`, um die Feldnamen zu verwenden (macht es einfacher für localStorage)
 - Will man eine Checkbox als Ja/Nein Switch nutzen bei "Individuelle Attribute" `{"role":"switch"}` hinzufügen
 - Felder die im Formular wiederholt werden sollen, mit eine `_again` versehen, z.B. `name_again` (optional nein `{"disabled":"disabled"}` bei den *Individuelle Attribute* hinzufügen)
@@ -133,7 +133,7 @@ Ebenfalls ist es möglich den Checkbox Switch über CSS Variablen anzupassen:
 ## Mitgelieferte / Angepasste yTemplates
 
 - checkbox wurde erweitert als Ja/Nein Schalter, wenn die Checkbox nur 1 Option hat und bei "Individuelle Attribute" `{"role":"switch"}` gesetzt ist.
-- uikit, bootstrap und classic
+- uikit und bootstrap
 
 ### UIkit
 - fieldset: legend die Klasse `uk-legend` bekommen, um diese zu stylen
