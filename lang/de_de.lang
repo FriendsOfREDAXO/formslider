@@ -12,9 +12,14 @@ formslider_info = Erklärung zum Addon
 formslider_config = Einstellungen
 
 install_module = Modul installieren
-install_module_description = Um Formslider sinnvoll nutzen können, muss ein Modul erstellt werden.
+install_module_description = Um Formslider sinnvoll nutzen können, sollte ein Modul erstellt werden.
 install_formslider_module = Modul "Formslider Ausgabe" installieren
 install_update_module = Modul "Formslider Ausgabe" updaten
+
+install_template = Template installieren
+install_template_description = Um die PDF Generierung von Formslider sinnvoll nutzen können, sollte ein Template erstellt werden.
+install_formslider_template = Template "Formslider PDF Template" installieren
+install_update_template = Template "Formslider PDF Template" updaten
 
 formslider_config_mytextfield_label = Test-Feld
 formslider_config_mytextfield_notice = Notiz, die etwas erklärt und bspw. einen Standardwert nennt. Hier: <code>Test</code>

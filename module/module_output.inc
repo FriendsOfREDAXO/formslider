@@ -1,4 +1,7 @@
 <?php
+
+// module:formslider_basic_output
+
 if (rex_yform_manager_table::getById(intval('REX_VALUE[1]'))) {
 $table = rex_yform_manager_table::getById(intval('REX_VALUE[1]'));
 $tablename = $table->getTableName();
