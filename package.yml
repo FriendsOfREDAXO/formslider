@@ -31,3 +31,25 @@ page:
             icon: rex-icon fa-gears
             itemclass: pull-right
             perm: admin
+
+
+installer_ignore:
+- .git
+- .gitignore
+- .github
+- .php-cs-fixer.dist.php
+- src
+- node_modules
+- .browserslistrc
+- .env
+- .env.local
+- .eslintrc.cjs
+- .prettierrc.cjs
+- .jsconfig.json
+- main.js
+- package.json
+- postcss.config.js
+- stylelint.config.js
+- tailwind.config.js
+- vite.config.js
+- yarn.lock
