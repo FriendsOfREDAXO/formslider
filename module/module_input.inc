@@ -6,9 +6,12 @@ $dataset = rex_yform_manager_table::getAll();
 $tables = array_filter($dataset, function($var) use ($searchword) { return str_contains($var["table_name"], $searchword); });
 $templates = rex_sql::factory()->getArray('SELECT id, name FROM ' . rex::getTable('template') . ' WHERE name LIKE "%formslider%" OR name LIKE "%pdf%" ORDER BY name');
 
-$pdf_display   = ($sel=='' || $sel==1) ?' style="display:none"':'';
-$mail_display = ($sel=='' || $sel==0) ?' style="display:none"':'';
+$sel = "REX_VALUE[19]";
+$row_pad = 2;
+$pdf_display   = ($sel=='' || $sel==0 || $sel==1 || $sel==2) ?' style="display:none"':'';
+$mail_display = ($sel=='' || $sel==0 || $sel==3) ?' style="display:none"':'';
 ?>
+
 
 <div id="formslider-builder">
   <fieldset class="form-horizontal">
@@ -41,6 +44,20 @@ $mail_display = ($sel=='' || $sel==0) ?' style="display:none"':'';
       <div class="col-md-9">
         <input class="form-control" type="text" name="REX_INPUT_VALUE[20]" value="REX_VALUE[20]">
         <p class="help-block">CSS-Klasse außerhalb des Formulars.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Meldung bei erfolgreichen Versand</label>
+      <div class="col-md-9">
+        <label class="radio-inline">
+          <input type="radio" name="REX_INPUT_VALUE[11]" value="0"<?php if("REX_VALUE[11]" == '0') echo ' checked'; ?> /> Plaintext
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="REX_INPUT_VALUE[11]" value="1"<?php if("REX_VALUE[11]" == '1') echo ' checked'; ?> /> HTML
+        </label>
+      </div>
+      <div class="col-md-offset-3 col-md-9">
+        <textarea class="form-control" name="REX_INPUT_VALUE[6]" rows="<?php echo (count(explode("\r",'REX_VALUE[6]'))+$row_pad);?>">REX_VALUE[6]</textarea>
       </div>
     </div>
   </fieldset>
@@ -91,9 +108,6 @@ $mail_display = ($sel=='' || $sel==0) ?' style="display:none"':'';
       <label class="col-md-2 control-label">Mailbody</label>
       <div class="col-md-10">
         <textarea class="form-control" id="formslider-js-mail-body" name="REX_INPUT_VALUE[17]" rows="<?php echo (count(explode("\r",'REX_VALUE[17]'))+$row_pad);?>">REX_VALUE[17]</textarea>
-        <div class="help-block">
-          <?php echo $placeholders;?>
-        </div>
       </div>
     </div>
 
@@ -118,33 +132,10 @@ $mail_display = ($sel=='' || $sel==0) ?' style="display:none"':'';
   </fieldset>
 </div>
 
-<p id="yform-formslider-info"><?=  rex_addon::get('formslider')->getName() . ' ' . rex_addon::get('formslider')->getVersion() ?></p>
+<p id="yform-formslider-info" class="text-right border-top small"><?=  rex_addon::get('formslider')->getName() . ' ' . rex_addon::get('formslider')->getVersion() ?></p>
 
 <script type="text/javascript" nonce="<?php echo rex_response::getNonce(); ?>">
   (function($){
-
-    // TOGGLERS
-    $('#formslider-js-placeholders-help-toggler').click(function(e){
-      e.preventDefault();
-      $('#formslider-js-placeholders-help').toggle(50);return false;
-    });
-    $('#formslider-js-where-help-toggler').click(function(e){
-      e.preventDefault();
-      $('#formslider-js-where-help').toggle(50);return false;
-    });
-    $('#formslider-js-pdf-help-toggler').click(function(e){
-      e.preventDefault();
-      $('#formslider-js-pdf-help').toggle(50);return false;
-    });
-
-
-    // INSERT PLACEHOLDERS
-    $('#formslider-js-placeholders code').click(function(){
-      newval = $('#formslider-js-mail-body').val()+' '+$(this).html();
-      $('#formslider-js-mail-body').val(newval);
-      $(this).addClass('text-muted');
-    });
-
     // TOGGLE MAIL/PDF PANELS
     $('#formslider-js-action-select').change(function(){
       switch($(this).val()){
