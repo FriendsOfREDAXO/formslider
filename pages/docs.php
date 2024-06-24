@@ -6,6 +6,7 @@
 echo rex_view::title(rex_i18n::msg('formslider_title'));
 
 if (is_readable($this->getPath('README.' . rex_i18n::getLanguage() . '.md'))) {
+  $content = '';
   [$readmeToc, $readmeContent] = rex_markdown::factory()->parseWithToc(rex_file::require($this->getPath('README.' . rex_i18n::getLanguage() . '.md')), 2, 3, [
       rex_markdown::SOFT_LINE_BREAKS => false,
       rex_markdown::HIGHLIGHT_PHP => true,
