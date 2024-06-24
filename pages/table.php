@@ -90,7 +90,6 @@ if ($show_list && rex::getUser()->isAdmin()) {
 
     $fragment = new rex_fragment();
     $fragment->setVar('title', rex_i18n::msg('yform_table_overview'));
-    $fragment->setVar('options', $panel_options, false);
     $fragment->setVar('content', $content, false);
     $content = $fragment->parse('core/page/section.php');
     echo $content;
