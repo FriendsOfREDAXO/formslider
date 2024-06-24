@@ -1,0 +1,29 @@
+formslider_title = Form Slider
+formslider_block_title = Settings
+navigation_formslider = Form Slider
+
+formslider_table = Forms
+formslider_table_notice = To make forms appear here, always include <b>_formslider_</b> in the name.
+formslider_settings = Settings
+formslider_docs = Help
+formslider_info = Addon Explanation
+
+# Konfigurationsformulare
+formslider_config = Settings
+
+install_module = Install Module
+install_module_description = To use Form Slider effectively, a module should be created.
+install_formslider_module = Install "Formslider Output" Module
+install_update_module = Update "Formslider Output" Module
+
+install_template = Install Template
+install_template_description = To use the PDF generation of Form Slider effectively, a template should be created.
+install_formslider_template = Install "Formslider PDF Template"
+install_update_template = Update "Formslider PDF Template"
+
+formslider_config_mytextfield_label = Test Field
+formslider_config_mytextfield_notice = Note that explains something and, for example, specifies a default value. Here: <code>Test</code>
+
+# YForm Tabellen-Übersetzung
+formslider_table_name_label = Name
+formslider_table_name_notice = Note that explains something and can also specify an example value, e.g.: <code>My Name</code>
