@@ -30,7 +30,8 @@ if (rex::isBackend()) {
 function formsliderGeneratePDF($params, $template = '') {
     Locale::setDefault('de-DE');
     $valuePool = $params['value_pool']['sql'];
-
+    $addon = rex_addon::get('formslider');
+    
     // Speichere den Template-Inhalt in eine temporäre Datei, um sie als PHP einzubinden
     $tempTemplatePath = rex_path::addonData('formslider', 'temp_template'.date('Y-m-d_H-i-s').'_'.random_int(0, 9999999).'.php');
     rex_file::put($tempTemplatePath, $template, LOCK_EX);
@@ -62,7 +63,8 @@ function formsliderGeneratePDF($params, $template = '') {
     // $pdf->getCanvas()->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 10, array(0,0,0));
 
     // Save File to path and send File
-    $pdf->setSaveToPath('/pdf')->setSaveAndSend(true);
+    $dataPath = $addon->getDataPath();
+    $pdf->setSaveToPath($dataPath)->setSaveAndSend(true);
 
     // execute and generate
     $pdf->run();
