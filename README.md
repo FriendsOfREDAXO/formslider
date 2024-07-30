@@ -140,3 +140,19 @@ Ebenfalls ist es möglich den Checkbox Switch über CSS Variablen anzupassen:
 - text: Klasse `uk-input` hinzugefügt, `form-group` ist `uk-margin`, der Help-Block `uk-form-small`
 - textarea: Klasse `uk-textarea` hinzugefügt, `form-group` ist `uk-margin`, der Help-Block `uk-form-small`
 - submit: Klasse `uk-button` hinzugefügt
+
+---
+
+### Autor
+
+**Friends Of REDAXO**
+
+* http://www.redaxo.org
+* https://github.com/FriendsOfREDAXO
+
+**Projekt-Leads**
+* [Tim Filler](https://github.com/elricco)
+* [Thomas Skerbis](https://klxm.de)
+
+**Dank geht an:**
+[AWO Kreisverband Wesel e.V.](https://awo-kv-wesel.de)
