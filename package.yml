@@ -8,7 +8,7 @@ requires:
         version: '>=8.1, <9'
     packages:                  # Plugins und Addons
         yform: "^4"
-        pdfout: "^8.3"
+        pdfout: ">8.3"
 
 page:
     title: translate:formslider_block_title    # Übersetzung definieren in lang/de_de.lang
