@@ -6,9 +6,9 @@ rex_yform::addTemplatePath(rex_path::addon('formslider', 'ytemplates'));
 if (rex::isBackend()) {
     rex_extension::register('PACKAGES_INCLUDED', function ($params) {
 
-        $plugin = rex_plugin::get('yform', 'manager');
+        $addom = rex_addon::get('yform');
 
-        if ($plugin) {
+        if ($addon->isAvailable() {
             $pages = $plugin->getProperty('pages');
             $dataset = rex_yform_manager_table::getAll();
             $searchword = 'formslider';
