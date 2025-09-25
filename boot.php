@@ -8,7 +8,7 @@ if (rex::isBackend()) {
 
         $addom = rex_addon::get('yform');
 
-        if ($addon->isAvailable() {
+        if ($addon->isAvailable()) {
             $pages = $plugin->getProperty('pages');
             $dataset = rex_yform_manager_table::getAll();
             $searchword = 'formslider';
@@ -27,7 +27,7 @@ if (rex::isBackend()) {
     });
 }
 
-function formsliderGeneratePDF($params, $template = '') {
+function formsliderGeneratePDF($params, $template = '', $shouldDownload = true) {
     Locale::setDefault('de-DE');
     $valuePool = $params['value_pool']['sql'];
     $addon = rex_addon::get('formslider');
@@ -62,9 +62,9 @@ function formsliderGeneratePDF($params, $template = '') {
     // $font = $pdf->getFontMetrics()->get_font("helvetica", "bold");
     // $pdf->getCanvas()->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 10, array(0,0,0));
 
-    // Save File to path and send File
+    // Save File to path and send File - only download if no other actions are pending
     $dataPath = $addon->getDataPath();
-    $pdf->setSaveToPath($dataPath)->setSaveAndSend(true);
+    $pdf->setSaveToPath($dataPath)->setSaveAndSend($shouldDownload);
 
     // execute and generate
     $pdf->run();

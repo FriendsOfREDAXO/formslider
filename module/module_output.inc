@@ -50,8 +50,12 @@ if (rex_yform_manager_table::getById(intval('REX_VALUE[1]'))) {
     $template = new rex_template($templateId);
     $templateContent = $template->getTemplate();
     $rexVar = $templateContent;
-    $yform->setActionField('callback', [static function (rex_yform_action_callback $action) use ($rexVar, $yform) {
-      formsliderGeneratePDF($action->params, $rexVar);
+    
+    // For form types 4 and 5 (PDF + email), don't force download to allow email processing
+    $shouldDownload = ($form_type == '3'); // Only download for PDF-only (type 3)
+    
+    $yform->setActionField('callback', [static function (rex_yform_action_callback $action) use ($rexVar, $shouldDownload) {
+      formsliderGeneratePDF($action->params, $rexVar, $shouldDownload);
     }], 'post');
   }
 
