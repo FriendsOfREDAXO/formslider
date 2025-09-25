@@ -40,6 +40,8 @@ Wer die Ausgabe des Formslider im Frontend nutzen möchte, kann dies über die E
 
 Wer die genutzen Klassen, IDs, Buttonbezeichnungen etc. anpassen will, kann dies folgendermaßen tun:
 
+### Mit statischem Import:
+
 ```html
   <script type="module">
     import { f as formslider } from './assets/addons/formslider/fsm.js';
@@ -60,6 +62,30 @@ Wer die genutzen Klassen, IDs, Buttonbezeichnungen etc. anpassen will, kann dies
         }
       );
     })
+  </script>
+```
+
+### Mit dynamischem Import (Code-Splitting):
+
+```html
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', async function() {
+      const { f: formslider } = await import('./assets/addons/formslider/fsm.js');
+      formslider(
+        { // Options
+          nextButtonLabel: 'Weiter',
+          nextButtonClasses: 'uk-button uk-button-default',
+          prevButtonLabel: 'Zurück',
+          prevButtonClasses: 'uk-button uk-button-default',
+          deleteDivClasses: 'uk-margin-large-top',
+          deleteDataButtonLabel: 'Lösche meine Daten',
+          deleteDataButtonClasses: 'uk-button uk-button-default',
+          deleteDataHeadline: '<h6>Daten löschen</h6>',
+          deleteDataText: '<p>Ihre Daten gehören Ihnen. Alle eingegebenen Daten werden lokal in Ihrem Browser gespeichert. Kehren Sie zu dieser Seite zurück, werden Ihre eingegeben Daten wiederhergestellt. Sie können die Daten löschen, indem Sie ihren Browser-Cache / Cookies löschen oder indem Sie auf den untentstehenden Button klicken. (An einem öffentlichen Rechner sollten Sie die Daten auf jeden Fall löschen.)</p>',
+          prependProgress: true
+        }
+      );
+    });
   </script>
 ```
 
