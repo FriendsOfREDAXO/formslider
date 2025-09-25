@@ -51,11 +51,19 @@ if (rex_yform_manager_table::getById(intval('REX_VALUE[1]'))) {
     $templateContent = $template->getTemplate();
     $rexVar = $templateContent;
     
-    // For form types 4 and 5 (PDF + email), don't force download to allow email processing
-    $shouldDownload = ($form_type == '3'); // Only download for PDF-only (type 3)
-    
-    $yform->setActionField('callback', [static function (rex_yform_action_callback $action) use ($rexVar, $shouldDownload) {
-      formsliderGeneratePDF($action->params, $rexVar, $shouldDownload);
+    // Generate PDF and store path for later use
+    $yform->setActionField('callback', [static function (rex_yform_action_callback $action) use ($rexVar, $form_type, $yform) {
+      $pdfPath = formsliderGeneratePDF($action->params, $rexVar, true, $form_type);
+      
+      // For PDF+Email combinations, store PDF info for later use
+      if (($form_type == '4' || $form_type == '5') && $pdfPath) {
+        $action->params['formslider_pdf_file'] = basename($pdfPath);
+        // Store in session for download link
+        if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+        }
+        $_SESSION['formslider_pdf_file'] = basename($pdfPath);
+      }
     }], 'post');
   }
 
@@ -65,7 +73,34 @@ if (rex_yform_manager_table::getById(intval('REX_VALUE[1]'))) {
     $mail_to = ('REX_VALUE[15]' != '') ? 'REX_VALUE[15]' : rex::getErrorEmail();
     $mail_subject = 'REX_VALUE[16]';
     $mail_body = str_replace('<br />', '', rex_yform::unhtmlentities('REX_VALUE[17]'));
-    $yform->setActionField('email', [$mail_from, $mail_to, $mail_subject, $mail_body]);
+    
+    // For PDF+Email combinations, send email with PDF attachment
+    if ($form_type == '4' || $form_type == '5') {
+      $yform->setActionField('callback', [static function (rex_yform_action_callback $action) use ($mail_from, $mail_to, $mail_subject, $mail_body) {
+        $mail = new rex_mailer();
+        $mail->From = $mail_from;
+        $mail->addAddress($mail_to);
+        $mail->Subject = $mail_subject;
+        $mail->Body = $mail_body;
+        
+        // Attach PDF if available
+        if (isset($action->params['formslider_pdf_file'])) {
+          $addon = rex_addon::get('formslider');
+          $dataPath = $addon->getDataPath();
+          $pdfFile = $action->params['formslider_pdf_file'];
+          $pdfPath = $dataPath . $pdfFile;
+          
+          if (file_exists($pdfPath)) {
+            $mail->addAttachment($pdfPath, $pdfFile);
+          }
+        }
+        
+        $mail->send();
+      }], 'post');
+    } else {
+      // Regular email without PDF attachment
+      $yform->setActionField('email', [$mail_from, $mail_to, $mail_subject, $mail_body]);
+    }
   }
 
   // action - db
@@ -79,6 +114,25 @@ if (rex_yform_manager_table::getById(intval('REX_VALUE[1]'))) {
 
   echo '<div class="REX_VALUE[20]">';
   echo $dataset->executeForm($yform);
+  
+  // For PDF+Email combinations, show download link after successful form submission
+  if (($form_type == '4' || $form_type == '5') && isset($_POST) && !empty($_POST) && !$yform->hasErrors()) {
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    
+    if (isset($_SESSION['formslider_pdf_file'])) {
+      echo '<div class="alert alert-info" style="margin-top: 15px;">';
+      echo '<p><strong>Formular erfolgreich übermittelt!</strong></p>';
+      echo '<p>E-Mail wurde versendet.</p>';
+      echo '<p><a href="' . rex_getUrl() . '?formslider_download_pdf=1&pdf_file=' . urlencode($_SESSION['formslider_pdf_file']) . '" class="btn btn-primary" target="_blank">PDF herunterladen</a></p>';
+      echo '</div>';
+      
+      // Clean up session variable
+      unset($_SESSION['formslider_pdf_file']);
+    }
+  }
+  
   echo '</div>';
 
 } else {
