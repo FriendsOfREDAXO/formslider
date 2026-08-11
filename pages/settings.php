@@ -2,7 +2,10 @@
 
 echo rex_view::title(rex_i18n::msg('formslider_title'));
 
-if (rex::getUser()->isAdmin() && rex_addon::get('structure')->isAvailable()) {
+$addon = rex_addon::get('formslider');
+$user = rex::getUser();
+
+if ($user instanceof rex_user && $user->isAdmin() && rex_addon::get('structure')->isAvailable()) {
     // Formslider Modul installieren
     $content = '';
     $searchtext = 'module:formslider_basic_output';
@@ -42,16 +45,16 @@ if (rex::getUser()->isAdmin() && rex_addon::get('structure')->isAvailable()) {
         }
     }
 
-    $content .= '<p>' . $this->i18n('install_module_description') . '</p>';
+    $content .= '<p>' . $addon->i18n('install_module_description') . '</p>';
 
     if ($module_id > 0) {
-        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install=1&amp;module_id=' . $module_id . '" class="rex-button">' . $this->i18n('install_update_module', rex_escape((string) $module_name)) . '</a></p>';
+        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install=1&amp;module_id=' . $module_id . '" class="rex-button">' . $addon->i18n('install_update_module', rex_escape((string) $module_name)) . '</a></p>';
     } else {
-        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install=1" class="rex-button">' . $this->i18n('install_formslider_module', $formslider_module_name) . '</a></p>';
+        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install=1" class="rex-button">' . $addon->i18n('install_formslider_module', $formslider_module_name) . '</a></p>';
     }
 
     $fragment = new rex_fragment();
-    $fragment->setVar('title', $this->i18n('install_module'), false);
+    $fragment->setVar('title', $addon->i18n('install_module'), false);
     $fragment->setVar('body', $content, false);
     echo $fragment->parse('core/page/section.php');
 
@@ -99,21 +102,19 @@ if (rex::getUser()->isAdmin() && rex_addon::get('structure')->isAvailable()) {
         }
     }
 
-    $content = '<p>' . $this->i18n('install_template_description') . '</p>';
+    $content = '<p>' . $addon->i18n('install_template_description') . '</p>';
 
     if ($template_id > 0) {
-        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install_template=1&amp;template_id=' . $template_id . '" class="rex-button ">' . $this->i18n('install_update_template', rex_escape((string) $template_name)) . '</a></p>';
+        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install_template=1&amp;template_id=' . $template_id . '" class="rex-button ">' . $addon->i18n('install_update_template', rex_escape((string) $template_name)) . '</a></p>';
     } else {
-        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install_template=1" class="rex-button">' . $this->i18n('install_formslider_template', $formslider_template_name) . '</a></p>';
+        $content .= '<p><a class="btn btn-primary" href="index.php?page=formslider/settings&amp;install_template=1" class="rex-button">' . $addon->i18n('install_formslider_template', $formslider_template_name) . '</a></p>';
     }
 
     $fragment = new rex_fragment();
-    $fragment->setVar('title', $this->i18n('install_template'), false);
+    $fragment->setVar('title', $addon->i18n('install_template'), false);
     $fragment->setVar('body', $content, false);
     echo $fragment->parse('core/page/section.php');
 }
-
-$addon = rex_addon::get('formslider');
 
 $form = rex_config_form::factory($addon->getName());
 

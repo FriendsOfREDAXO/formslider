@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @var rex_yform_value_abstract|rex_yform $this
- * @psalm-scope-this rex_yform_value_abstract
+ * @var rex_yform_value_abstract $this
  */
 
 $option ??= '';

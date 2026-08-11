@@ -1,72 +1,84 @@
-<?php // Boot code
+<?php
+
+use FriendsOfRedaxo\PdfOut\PdfOut;
 
 rex_yform::addTemplatePath(rex_path::addon('formslider', 'ytemplates'));
 
-
 if (rex::isBackend()) {
-    rex_extension::register('PACKAGES_INCLUDED', function ($params) {
+    rex_extension::register('PACKAGES_INCLUDED', static function (): void {
+        $yformAddon = rex_addon::get('yform');
+        if (!$yformAddon->isAvailable()) {
+            return;
+        }
 
-        $addom = rex_addon::get('yform');
+        $pages = $yformAddon->getProperty('pages');
+        if (!is_array($pages)) {
+            return;
+        }
 
-        if ($addon->isAvailable() {
-            $pages = $plugin->getProperty('pages');
-            $dataset = rex_yform_manager_table::getAll();
-            $searchword = 'formslider';
+        $tableNames = [];
+        foreach (rex_yform_manager_table::getAll() as $table) {
+            $tableName = $table->getTableName();
+            if (str_contains($tableName, 'formslider')) {
+                $tableNames[] = $tableName;
+            }
+        }
 
-            $ycom_tables = array_filter($dataset, function($var) use ($searchword) { return str_contains($var["table_name"], $searchword); });
-            // $ycom_tables = ['rex_formslider_awo'];
-
-            if (isset($pages) && is_array($pages)) {
-                foreach ($pages as $page) {
-                    if (in_array($page->getKey(), $ycom_tables)) {
-                        $page->setBlock('formslider');
-                    }
-                }
+        foreach ($pages as $page) {
+            if ($page instanceof rex_be_page && in_array($page->getKey(), $tableNames, true) && is_callable([$page, 'setBlock'])) {
+                call_user_func([$page, 'setBlock'], 'formslider');
             }
         }
     });
 }
 
-function formsliderGeneratePDF($params, $template = '') {
-    Locale::setDefault('de-DE');
-    $valuePool = $params['value_pool']['sql'];
+/**
+ * @param array<string, mixed> $params
+ */
+function formsliderGeneratePDF(array $params, string $template = ''): void
+{
+    rex_response::cleanOutputBuffers();
+    \Locale::setDefault('de-DE');
+
+    if (!rex_addon::get('pdfout')->isAvailable() || !class_exists(PdfOut::class)) {
+        throw new rex_exception('Das Addon "pdfout" ist nicht verfügbar.');
+    }
+
     $addon = rex_addon::get('formslider');
-    
-    // Speichere den Template-Inhalt in eine temporäre Datei, um sie als PHP einzubinden
-    $tempTemplatePath = rex_path::addonData('formslider', 'temp_template'.date('Y-m-d_H-i-s').'_'.random_int(0, 9999999).'.php');
-    rex_file::put($tempTemplatePath, $template, LOCK_EX);
+    $tempTemplatePath = rex_path::addonData('formslider', 'temp_template' . date('Y-m-d_H-i-s') . '_' . random_int(0, 9999999) . '.php');
+    rex_file::put($tempTemplatePath, $template);
 
-    $values = $params['values'];
+    $values = [];
+    if (isset($params['values']) && is_array($params['values'])) {
+        $values = $params['values'];
+    }
+    extract($values, EXTR_SKIP);
 
-    extract($values);
-
-    // Das Template mit den übergebenen Parametern rendern
     ob_start();
-    include $tempTemplatePath;
-    $renderedContent = ob_get_clean();
+    try {
+        include $tempTemplatePath;
+        $renderedContent = (string) ob_get_clean();
+    } finally {
+        rex_file::delete($tempTemplatePath);
+    }
 
-    // Die temporäre Datei löschen
-    unlink($tempTemplatePath);
+    $tableLabel = 'formslider';
+    if (isset($params['main_table']) && is_string($params['main_table'])) {
+        $table = rex_yform_manager_table::get($params['main_table']);
+        if (null !== $table) {
+            $tableLabel = $table->getName();
+        }
+    }
 
     $pdf = new PdfOut();
-
-    $pdf->setName(rex_yform_manager_table::get($params['main_table'])->getName().'_'.date('Y-m-d_H-i-s').'_'.random_int(0, 9999999))
+    $pdf->setName($tableLabel . '_' . date('Y-m-d_H-i-s') . '_' . random_int(0, 9999999))
         ->setFont('Helvetica')
         ->setHtml($renderedContent, true)
-        ->setOrientation('portrait')
-        ->setPaper('A4')
+        ->setPaperSize('A4', 'portrait')
         ->setAttachment(true)
         ->setRemoteFiles(true)
         ->setDpi(300);
 
-    // $font = $pdf->getFontMetrics()->get_font("helvetica", "bold");
-    // $pdf->getCanvas()->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 10, array(0,0,0));
-
-    // Save File to path and send File
-    $dataPath = $addon->getDataPath();
-    $pdf->setSaveToPath($dataPath)->setSaveAndSend(true);
-
-    // execute and generate
+    $pdf->setSaveToPath($addon->getDataPath())->setSaveAndSend(true);
     $pdf->run();
-
 }

@@ -3,10 +3,9 @@
 echo rex_view::title(rex_i18n::msg('formslider_title'));
 
 $table_name = 'formslider';
+$user = rex::getUser();
 
-$show_list = true;
-
-if ($show_list && rex::getUser()->isAdmin()) {
+if ($user instanceof rex_user && $user->isAdmin()) {
 
     $page = rex_request('page', 'string', 'yform/manager/table_edit');
 
@@ -15,13 +14,19 @@ if ($show_list && rex::getUser()->isAdmin()) {
     ]);
 
     // formatting func fuer status col
-    function rex_yform_status_col($params)
+    /**
+     * @param array<string, mixed> $params
+     */
+    function rex_yform_status_col(array $params): string
     {
         $list = $params['list'];
         return 1 == $list->getValue('status') ? '<span class="rex-online"><i class="rex-icon rex-icon-online"></i> ' . rex_i18n::msg('yform_tbl_active') . '</span>' : '<span class="rex-offline"><i class="rex-icon rex-icon-offline"></i> ' . rex_i18n::msg('yform_tbl_inactive') . '</span>';
     }
 
-    function rex_yform_hidden_col($params)
+    /**
+     * @param array<string, mixed> $params
+     */
+    function rex_yform_hidden_col(array $params): string
     {
         $list = $params['list'];
         return 1 == $list->getValue('hidden') ? '<span class="text-muted">' . rex_i18n::msg('yform_hidden') . '</span>' : '<span>' . rex_i18n::msg('yform_visible') . '</span>';
