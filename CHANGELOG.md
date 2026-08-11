@@ -3,6 +3,7 @@
 ## 1.0.1 (2026-08-11)
 
 - NPM-Abhängigkeiten auf den aktuellen, kompatiblen Stand innerhalb der bestehenden Versionsbereiche aktualisiert.
+- `@babel/core` auf `^7.29.7` angehoben (Issue #31).
 - Lockfiles aktualisiert (package-lock.json, yarn.lock).
 - Build-Prüfung nach dem Update erfolgreich ausgeführt.
 - Boot-Code für YForm-Seitenzuordnung bereinigt und typischer Edge-Case bei nicht verfügbaren Seiten-Properties abgefangen.
